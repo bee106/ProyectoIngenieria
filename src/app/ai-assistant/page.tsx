@@ -35,11 +35,12 @@ export default function AIAssistantPage() {
     <div className="min-h-screen bg-background flex flex-col">
       {/* Navigation Bar */}
       <nav className="bg-secondary p-4 border-b border-border">
-        <div className="container mx-auto">
+        <div className="container mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <Icons.home className="h-5 w-5" />
             <span className="font-bold">Dashboard</span>
           </Link>
+          <span className="font-semibold text-lg">FISCO</span>
         </div>
       </nav>
 
@@ -59,7 +60,14 @@ export default function AIAssistantPage() {
                 rows={4}
               />
               <Button type="submit" disabled={loading}>
-                {loading ? "Loading..." : "Get Answer"}
+                {loading ? (
+                  <>
+                    <Icons.loader className="mr-2 h-4 w-4 animate-spin" />
+                    Get Answer
+                  </>
+                ) : (
+                  "Get Answer"
+                )}
               </Button>
             </form>
           </CardContent>

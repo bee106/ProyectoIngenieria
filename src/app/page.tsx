@@ -14,8 +14,8 @@ export default function Home() {
       <Sidebar className="w-64 md:block hidden">
         <SidebarHeader>
           <div className="flex items-center space-x-2">
-            {Icons.logo && <Icons.logo className="h-6 w-6" />}
-            <span className="font-bold">TributoClaro</span>
+            <Icons.logo className="h-6 w-6" />
+            <span className="font-bold">FISCO</span>
           </div>
         </SidebarHeader>
         <SidebarContent>
@@ -77,25 +77,25 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Card className="tributo-card">
               <CardHeader>
-                <CardTitle>Welcome!</CardTitle>
-                <CardDescription>Start managing your finances with TributoClaro.</CardDescription>
+                <CardTitle>Welcome to FISCO!</CardTitle>
+                <CardDescription>Your financial journey starts here.</CardDescription>
               </CardHeader>
               <CardContent>
-                <p>Explore the dashboard, manage clients, create invoices, and get help from the AI Tax Assistant.</p>
+                <p>Explore the dashboard, manage clients, create invoices, and get help from the AI Tax Assistant. Let's get your finances in order!</p>
               </CardContent>
             </Card>
 
             <Card className="tributo-card">
               <CardHeader>
-                <CardTitle>Getting Started</CardTitle>
+                <CardTitle>Getting Started with FISCO</CardTitle>
                 <CardDescription>A quick guide to using the platform.</CardDescription>
               </CardHeader>
               <CardContent>
                 <ol>
                   <li>Go to the Dashboard for a financial overview.</li>
-                  <li>Add and manage your Clients.</li>
-                  <li>Create and send Invoices.</li>
-                  <li>Use the AI Tax Assistant for guidance.</li>
+                  <li>Add and manage your Clients efficiently.</li>
+                  <li>Create and send professional Invoices.</li>
+                  <li>Utilize the AI Tax Assistant for expert guidance.</li>
                 </ol>
               </CardContent>
             </Card>

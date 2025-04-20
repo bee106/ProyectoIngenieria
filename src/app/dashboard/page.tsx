@@ -20,6 +20,7 @@ import {
   PieChart,
   Pie,
   Cell,
+  ResponsiveContainer,
 } from "recharts";
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -41,7 +42,7 @@ const generateInvoiceData = (count: number) => {
   }));
 };
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+const COLORS = ["#1E88E5", "#43A047", "#FDD835", "#FB8C00"]; // More vibrant colors
 
 export default function DashboardPage() {
   const [incomeExpenseData, setIncomeExpenseData] = useState(() => generateRandomData(12, 5000, 4000));
@@ -61,18 +62,19 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-background flex flex-col">
       {/* Navigation Bar */}
       <nav className="bg-secondary p-4 border-b border-border">
-        <div className="container mx-auto">
+        <div className="container mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <Icons.home className="h-5 w-5" />
             <span className="font-bold">Dashboard</span>
           </Link>
+          <span className="font-semibold text-lg">FISCO</span>
         </div>
       </nav>
 
       <div className="flex-grow p-6">
         <h1 className="text-2xl font-bold mb-4">Financial Dashboard</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
           {/* Income vs Expenses Chart */}
           <Card className="tributo-card">
             <CardHeader>
@@ -80,35 +82,35 @@ export default function DashboardPage() {
               <CardDescription>Overview of your financial health</CardDescription>
             </CardHeader>
             <CardContent>
-              <AreaChart
-                width={500}
-                height={300}
-                data={incomeExpenseData}
-                margin={{
-                  top: 5,
-                  right: 20,
-                  left: 0,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Area
-                  type="monotone"
-                  dataKey="income"
-                  stroke="hsl(var(--chart-1))"
-                  fill="hsl(var(--chart-1))"
-                />
-                <Area
-                  type="monotone"
-                  dataKey="expenses"
-                  stroke="hsl(var(--chart-2))"
-                  fill="hsl(var(--chart-2))"
-                />
-              </AreaChart>
+              <ResponsiveContainer width="100%" height={300}>
+                <AreaChart
+                  data={incomeExpenseData}
+                  margin={{
+                    top: 5,
+                    right: 20,
+                    left: 0,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Area
+                    type="monotone"
+                    dataKey="income"
+                    stroke="hsl(var(--chart-1))"
+                    fill="hsl(var(--chart-1))"
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="expenses"
+                    stroke="hsl(var(--chart-2))"
+                    fill="hsl(var(--chart-2))"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
             </CardContent>
           </Card>
 
@@ -119,24 +121,26 @@ export default function DashboardPage() {
               <CardDescription>Track your invoice status</CardDescription>
             </CardHeader>
             <CardContent>
-              <PieChart width={400} height={300}>
-                <Pie
-                  data={invoiceStatusData}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {invoiceStatusData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={invoiceStatusData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {invoiceStatusData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
             </CardContent>
           </Card>
         </div>

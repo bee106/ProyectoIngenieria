@@ -37,11 +37,12 @@ export default function BlogPage() {
     <div className="min-h-screen bg-background flex flex-col">
       {/* Navigation Bar */}
       <nav className="bg-secondary p-4 border-b border-border">
-        <div className="container mx-auto">
+        <div className="container mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <Icons.home className="h-5 w-5" />
             <span className="font-bold">Dashboard</span>
           </Link>
+          <span className="font-semibold text-lg">FISCO</span>
         </div>
       </nav>
       <div className="flex-grow p-6">

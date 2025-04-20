@@ -6,7 +6,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  } from "@/components/ui/card";
+} from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -34,6 +34,7 @@ const clients = [
     contact: "Jane Smith",
     email: "jane.smith@beta.com",
     phone: "310-987-6543",
+    phone: "310-987-6543",
   },
   {
     id: 3,
@@ -49,11 +50,12 @@ export default function ClientsPage() {
     <div className="min-h-screen bg-background flex flex-col">
       {/* Navigation Bar */}
       <nav className="bg-secondary p-4 border-b border-border">
-        <div className="container mx-auto">
+        <div className="container mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <Icons.home className="h-5 w-5" />
             <span className="font-bold">Dashboard</span>
           </Link>
+          <span className="font-semibold text-lg">FISCO</span>
         </div>
       </nav>
 
