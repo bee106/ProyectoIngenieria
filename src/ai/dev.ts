@@ -1,1 +1,2 @@
-// Flows will be imported for their side effects in this file.
+import '@/ai/flows/invoice-data-classification.ts';
+import '@/ai/flows/tax-assistant-guidance.ts';
