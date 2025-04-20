@@ -104,10 +104,12 @@ body {
 /* Custom CSS classes for specific UI elements */
 .tributo-card {
   @apply rounded-lg border bg-card text-card-foreground shadow-md;
+  /* Adding a subtle gradient */
+  background: linear-gradient(to bottom right, hsl(var(--card)), rgba(255,255,255,0.1));
 }
 
 .tributo-button {
-  @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 shadow-sm; /* Adding a subtle shadow */
 }
 
 /* Typography */
