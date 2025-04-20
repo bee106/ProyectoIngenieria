@@ -22,6 +22,8 @@ import {
   Cell,
 } from "recharts";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Icons } from "@/components/icons";
 
 // Function to generate random data for charts
 const generateRandomData = (count: number, maxIncome: number, maxExpenses: number) => {
@@ -56,76 +58,88 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Financial Dashboard</h1>
+    <div className="min-h-screen bg-background flex flex-col">
+      {/* Navigation Bar */}
+      <nav className="bg-secondary p-4 border-b border-border">
+        <div className="container mx-auto">
+          <Link href="/" className="flex items-center space-x-2">
+            <Icons.home className="h-5 w-5" />
+            <span className="font-bold">Dashboard</span>
+          </Link>
+        </div>
+      </nav>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Income vs Expenses Chart */}
-        <Card className="tributo-card">
-          <CardHeader>
-            <CardTitle>Income vs Expenses</CardTitle>
-            <CardDescription>Overview of your financial health</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <AreaChart
-              width={500}
-              height={300}
-              data={incomeExpenseData}
-              margin={{
-                top: 5,
-                right: 20,
-                left: 0,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Area
-                type="monotone"
-                dataKey="income"
-                stroke="hsl(var(--chart-1))"
-                fill="hsl(var(--chart-1))"
-              />
-              <Area
-                type="monotone"
-                dataKey="expenses"
-                stroke="hsl(var(--chart-2))"
-                fill="hsl(var(--chart-2))"
-              />
-            </AreaChart>
-          </CardContent>
-        </Card>
+      <div className="flex-grow p-6">
+        <h1 className="text-2xl font-bold mb-4">Financial Dashboard</h1>
 
-        {/* Smart Invoicing Status Chart */}
-        <Card className="tributo-card">
-          <CardHeader>
-            <CardTitle>Smart Invoicing Status</CardTitle>
-            <CardDescription>Track your invoice status</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <PieChart width={400} height={300}>
-              <Pie
-                data={invoiceStatusData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value"
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {/* Income vs Expenses Chart */}
+          <Card className="tributo-card">
+            <CardHeader>
+              <CardTitle>Income vs Expenses</CardTitle>
+              <CardDescription>Overview of your financial health</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <AreaChart
+                width={500}
+                height={300}
+                data={incomeExpenseData}
+                margin={{
+                  top: 5,
+                  right: 20,
+                  left: 0,
+                  bottom: 5,
+                }}
               >
-                {invoiceStatusData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend />
-            </PieChart>
-          </CardContent>
-        </Card>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Area
+                  type="monotone"
+                  dataKey="income"
+                  stroke="hsl(var(--chart-1))"
+                  fill="hsl(var(--chart-1))"
+                />
+                <Area
+                  type="monotone"
+                  dataKey="expenses"
+                  stroke="hsl(var(--chart-2))"
+                  fill="hsl(var(--chart-2))"
+                />
+              </AreaChart>
+            </CardContent>
+          </Card>
+
+          {/* Smart Invoicing Status Chart */}
+          <Card className="tributo-card">
+            <CardHeader>
+              <CardTitle>Smart Invoicing Status</CardTitle>
+              <CardDescription>Track your invoice status</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <PieChart width={400} height={300}>
+                <Pie
+                  data={invoiceStatusData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {invoiceStatusData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

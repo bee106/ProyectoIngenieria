@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton } from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarTrigger } from "@/components/ui/sidebar";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -10,8 +10,8 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <>
-      <Sidebar className="w-64">
+    <div className="md:flex h-screen bg-background">
+      <Sidebar className="w-64 md:block hidden">
         <SidebarHeader>
           <div className="flex items-center space-x-2">
             {Icons.logo && <Icons.logo className="h-6 w-6" />}
@@ -65,7 +65,12 @@ export default function Home() {
         </SidebarFooter>
       </Sidebar>
 
-      <div className="flex-1 p-4 md:pl-64">
+      <div className="flex-1 p-4">
+        {/* Hamburger menu for mobile */}
+        <div className="md:hidden">
+          <SidebarTrigger />
+        </div>
+
         <div className="max-w-7xl mx-auto">
           <h1 className="text-2xl font-bold mb-4">Financial Dashboard</h1>
 
@@ -95,10 +100,9 @@ export default function Home() {
               </CardContent>
             </Card>
           </div>
-
           {/* Other dashboard content goes here */}
         </div>
       </div>
-    </>
+    </div>
   );
 }
