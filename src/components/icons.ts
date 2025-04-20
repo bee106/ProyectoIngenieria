@@ -31,10 +31,9 @@ import {
   BarChart3,
   Coins,
   MessageCircle,
-  Settings as Gear,
-  Book as Blog,
   LogOut,
   LayoutDashboard,
+  Blog
 } from 'lucide-react';
 import React from 'react';
 
@@ -78,8 +77,6 @@ const Icons = {
   fileText: FileText,
   pieChart: PieChart,
   barChart: BarChart3,
-  coins: Coins,
-  gear: Gear,
   messageCircle: MessageCircle,
   Blog: Blog,
   logo: FiscoLogo, // Use the custom FISCO logo
@@ -88,5 +85,3 @@ const Icons = {
 };
 
 export { Icons };
-
-    
