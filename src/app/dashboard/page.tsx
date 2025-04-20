@@ -25,6 +25,8 @@ import {
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Icons } from "@/components/icons";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Function to generate random data for charts
 const generateRandomData = (count: number, maxIncome: number, maxExpenses: number) => {
@@ -47,12 +49,22 @@ const COLORS = ["#1E88E5", "#43A047", "#FDD835", "#FB8C00"]; // More vibrant col
 export default function DashboardPage() {
   const [incomeExpenseData, setIncomeExpenseData] = useState(() => generateRandomData(12, 5000, 4000));
   const [invoiceStatusData, setInvoiceStatusData] = useState(() => generateInvoiceData(4));
+  const [balance, setBalance] = useState(0);
+  const [expenses, setExpenses] = useState(0);
 
   useEffect(() => {
     // Update data periodically (optional)
     const intervalId = setInterval(() => {
-      setIncomeExpenseData(generateRandomData(12, 5000, 4000));
+      const newIncomeExpenseData = generateRandomData(12, 5000, 4000);
+      setIncomeExpenseData(newIncomeExpenseData);
       setInvoiceStatusData(generateInvoiceData(4));
+
+      // Calculate total balance and expenses
+      const totalIncome = newIncomeExpenseData.reduce((sum, data) => sum + data.income, 0);
+      const totalExpenses = newIncomeExpenseData.reduce((sum, data) => sum + data.expenses, 0);
+
+      setBalance(totalIncome - totalExpenses);
+      setExpenses(totalExpenses);
     }, 5000); // Update every 5 seconds
 
     return () => clearInterval(intervalId); // Clean up interval on unmount
@@ -74,7 +86,7 @@ export default function DashboardPage() {
       <div className="flex-grow p-6">
         <h1 className="text-2xl font-bold mb-4">Financial Dashboard</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {/* Income vs Expenses Chart */}
           <Card className="tributo-card">
             <CardHeader>
@@ -141,6 +153,50 @@ export default function DashboardPage() {
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
+            </CardContent>
+          </Card>
+
+          {/* Balance Card */}
+          <Card className="tributo-card">
+            <CardHeader>
+              <CardTitle>Balance</CardTitle>
+              <CardDescription>Current balance overview</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">${balance.toFixed(2)}</div>
+            </CardContent>
+          </Card>
+
+          {/* Expenses Card */}
+          <Card className="tributo-card">
+            <CardHeader>
+              <CardTitle>Expenses</CardTitle>
+              <CardDescription>Total expenses this period</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">${expenses.toFixed(2)}</div>
+            </CardContent>
+          </Card>
+
+          {/* Expense Control Card */}
+          <Card className="tributo-card">
+            <CardHeader>
+              <CardTitle>Expense Control</CardTitle>
+              <CardDescription>Manage and control your expenses</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ScrollArea className="h-40">
+                <ul>
+                  {incomeExpenseData.map((item, index) => (
+                    <li key={index} className="py-2">
+                      {item.name}: <span className="font-semibold">${item.expenses.toFixed(2)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </ScrollArea>
+              <Button variant="secondary" className="mt-4">
+                View All Expenses
+              </Button>
             </CardContent>
           </Card>
         </div>
