@@ -1,5 +1,3 @@
-"use client";
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarTrigger } from "@/components/ui/sidebar";
 import { Icons } from "@/components/icons";
@@ -47,7 +45,7 @@ export default function Home() {
               </SidebarMenuButton>
               <SidebarMenuButton>
                 <Link href="/blog">
-                  <Icons.Blog className="mr-2 h-4 w-4" />
+                  <Icons.blocks className="mr-2 h-4 w-4" />
                   <span>Blog</span>
                 </Link>
               </SidebarMenuButton>
@@ -106,3 +104,5 @@ export default function Home() {
     </div>
   );
 }
+
+    

@@ -33,7 +33,7 @@ import {
   MessageCircle,
   LogOut,
   LayoutDashboard,
-  Blog
+  Blocks
 } from 'lucide-react';
 import React from 'react';
 
@@ -78,10 +78,12 @@ const Icons = {
   pieChart: PieChart,
   barChart: BarChart3,
   messageCircle: MessageCircle,
-  Blog: Blog,
+  blocks: Blocks,
   logo: FiscoLogo, // Use the custom FISCO logo
   logout: LogOut,
   dashboard: LayoutDashboard,
 };
 
 export { Icons };
+
+    
