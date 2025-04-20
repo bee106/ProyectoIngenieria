@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton } from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton } from "@/components/ui/sidebar";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -9,6 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEffect, useState } from "react";
 import { classifyInvoiceData } from "@/ai/flows/invoice-data-classification";
 import { taxAssistantGuidance } from "@/ai/flows/tax-assistant-guidance";
+import Link from "next/link";
 
 export default function Home() {
   const [invoiceData, setInvoiceData] = useState<any>(null);
@@ -45,20 +46,34 @@ export default function Home() {
           <ScrollArea className="h-full">
             <SidebarMenu>
               <SidebarMenuButton>
-                <Icons.home className="mr-2 h-4 w-4" />
-                <span>Dashboard</span>
+                <Link href="/dashboard">
+                  <Icons.home className="mr-2 h-4 w-4" />
+                  <span>Dashboard</span>
+                </Link>
               </SidebarMenuButton>
               <SidebarMenuButton>
-                <Icons.users className="mr-2 h-4 w-4" />
-                <span>Clients</span>
+                <Link href="/clients">
+                  <Icons.users className="mr-2 h-4 w-4" />
+                  <span>Clients</span>
+                </Link>
               </SidebarMenuButton>
               <SidebarMenuButton>
-                <Icons.fileText className="mr-2 h-4 w-4" />
-                <span>Invoices</span>
+                <Link href="/invoices">
+                  <Icons.fileText className="mr-2 h-4 w-4" />
+                  <span>Invoices</span>
+                </Link>
               </SidebarMenuButton>
               <SidebarMenuButton>
-                <Icons.messageCircle className="mr-2 h-4 w-4" />
-                <span>AI Tax Assistant</span>
+                <Link href="/ai-assistant">
+                  <Icons.messageCircle className="mr-2 h-4 w-4" />
+                  <span>AI Tax Assistant</span>
+                </Link>
+              </SidebarMenuButton>
+              <SidebarMenuButton>
+                <Link href="/blog">
+                  <Icons.Blog className="mr-2 h-4 w-4" />
+                  <span>Blog</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenu>
           </ScrollArea>
