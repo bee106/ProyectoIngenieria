@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarProvider, SidebarTrigger, SidebarMenuItem } from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton } from "@/components/ui/sidebar";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -37,37 +37,29 @@ export default function Home() {
       <Sidebar className="w-64">
         <SidebarHeader>
           <div className="flex items-center space-x-2">
-            <Icons.logo className="h-6 w-6" />
+            {Icons.logo && <Icons.logo className="h-6 w-6" />}
             <span className="font-bold">TributoClaro</span>
           </div>
         </SidebarHeader>
         <SidebarContent>
           <ScrollArea className="h-full">
             <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <Icons.home className="mr-2 h-4 w-4" />
-                  <span>Dashboard</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <Icons.users className="mr-2 h-4 w-4" />
-                  <span>Clients</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <Icons.fileText className="mr-2 h-4 w-4" />
-                  <span>Invoices</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <Icons.messageCircle className="mr-2 h-4 w-4" />
-                  <span>AI Tax Assistant</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              <SidebarMenuButton>
+                <Icons.home className="mr-2 h-4 w-4" />
+                <span>Dashboard</span>
+              </SidebarMenuButton>
+              <SidebarMenuButton>
+                <Icons.users className="mr-2 h-4 w-4" />
+                <span>Clients</span>
+              </SidebarMenuButton>
+              <SidebarMenuButton>
+                <Icons.fileText className="mr-2 h-4 w-4" />
+                <span>Invoices</span>
+              </SidebarMenuButton>
+              <SidebarMenuButton>
+                <Icons.messageCircle className="mr-2 h-4 w-4" />
+                <span>AI Tax Assistant</span>
+              </SidebarMenuButton>
             </SidebarMenu>
           </ScrollArea>
         </SidebarContent>
