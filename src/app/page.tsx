@@ -6,33 +6,9 @@ import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useEffect, useState } from "react";
-import { classifyInvoiceData } from "@/ai/flows/invoice-data-classification";
-import { taxAssistantGuidance } from "@/ai/flows/tax-assistant-guidance";
 import Link from "next/link";
 
 export default function Home() {
-  const [invoiceData, setInvoiceData] = useState<any>(null);
-  const [taxGuidance, setTaxGuidance] = useState<any>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      // Example usage of classifyInvoiceData
-      const invoiceDataResult = await classifyInvoiceData({
-        invoiceDocumentUrl: "https://picsum.photos/200/300", // Replace with a real URL
-      });
-      setInvoiceData(invoiceDataResult);
-
-      // Example usage of taxAssistantGuidance
-      const taxGuidanceResult = await taxAssistantGuidance({
-        question: "How can I reduce my VAT?",
-      });
-      setTaxGuidance(taxGuidanceResult);
-    };
-
-    fetchData();
-  }, []);
-
   return (
     <>
       <Sidebar className="w-64">
@@ -96,59 +72,26 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Card className="tributo-card">
               <CardHeader>
-                <CardTitle>Income vs Expenses</CardTitle>
-                <CardDescription>Overview of your financial health</CardDescription>
+                <CardTitle>Welcome!</CardTitle>
+                <CardDescription>Start managing your finances with TributoClaro.</CardDescription>
               </CardHeader>
               <CardContent>
-                <Icons.pieChart className="w-6 h-6 mb-2" />
-                {/* Add dynamic chart here */}
-                <p>Chart data will be displayed here.</p>
+                <p>Explore the dashboard, manage clients, create invoices, and get help from the AI Tax Assistant.</p>
               </CardContent>
             </Card>
 
             <Card className="tributo-card">
               <CardHeader>
-                <CardTitle>Smart Invoicing Status</CardTitle>
-                <CardDescription>Track your invoice status</CardDescription>
+                <CardTitle>Getting Started</CardTitle>
+                <CardDescription>A quick guide to using the platform.</CardDescription>
               </CardHeader>
               <CardContent>
-                <Icons.barChart className="w-6 h-6 mb-2" />
-                {/* Add invoice status chart here */}
-                <p>Invoice chart data.</p>
-              </CardContent>
-            </Card>
-
-            {/* Display AI-classified invoice data */}
-            <Card className="tributo-card">
-              <CardHeader>
-                <CardTitle>AI Invoice Data</CardTitle>
-                <CardDescription>Extracted invoice information</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {invoiceData ? (
-                  <>
-                    <p>Invoice Number: {invoiceData.invoiceNumber}</p>
-                    <p>Issue Date: {invoiceData.issueDate}</p>
-                    {/* Display other extracted data */}
-                  </>
-                ) : (
-                  <p>Loading invoice data...</p>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Display AI tax guidance */}
-            <Card className="tributo-card">
-              <CardHeader>
-                <CardTitle>AI Tax Guidance</CardTitle>
-                <CardDescription>Get tax advice</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {taxGuidance ? (
-                  <p>{taxGuidance.answer}</p>
-                ) : (
-                  <p>Loading tax guidance...</p>
-                )}
+                <ol>
+                  <li>Go to the Dashboard for a financial overview.</li>
+                  <li>Add and manage your Clients.</li>
+                  <li>Create and send Invoices.</li>
+                  <li>Use the AI Tax Assistant for guidance.</li>
+                </ol>
               </CardContent>
             </Card>
           </div>

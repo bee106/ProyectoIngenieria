@@ -1,4 +1,4 @@
-import {ArrowRight, Check, ChevronsUpDown, Circle, Copy, Edit, ExternalLink, File, HelpCircle, Home, Loader2, Mail, MessageSquare, Moon, Plus, PlusCircle, Search, Server, Settings, Share2, Shield, Sun, Trash, User, X, Workflow, Users, FileText, PieChart, BarChart3, Coins, MessageCircle, Settings as Gear, Book as Blog} from 'lucide-react';
+import {ArrowRight, Check, ChevronsUpDown, Circle, Copy, Edit, ExternalLink, File, HelpCircle, Home, Loader2, Mail, MessageSquare, Moon, Plus, PlusCircle, Search, Server, Settings, Share2, Shield, Sun, Trash, User, X, Workflow, Users, FileText, PieChart, BarChart3, Coins, MessageCircle, Settings as Gear, Book as Blog, LogOut, LayoutDashboard} from 'lucide-react';
 
 const Icons = {
   arrowRight: ArrowRight,
@@ -37,6 +37,8 @@ const Icons = {
   gear: Gear,
   messageCircle: MessageCircle,
   Blog: Blog,
+  logo: LayoutDashboard,
 };
 
 export {Icons};
+

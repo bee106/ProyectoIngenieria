@@ -17,40 +17,44 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  PieChart,
+  Pie,
+  Cell,
 } from "recharts";
+import { useEffect, useState } from "react";
 
-const data = [
-  {name: "Jan", income: 4000, expenses: 2400},
-  {name: "Feb", income: 3000, expenses: 1398},
-  {name: "Mar", income: 2000, expenses: 9800},
-  {name: "Apr", income: 2780, expenses: 3908},
-  {name: "May", income: 1890, expenses: 4800},
-  {name: "Jun", income: 2390, expenses: 3800},
-  {name: "Jul", income: 3490, expenses: 4300},
-];
+// Function to generate random data for charts
+const generateRandomData = (count: number, maxIncome: number, maxExpenses: number) => {
+  return Array.from({ length: count }, (_, i) => ({
+    name: `Month ${i + 1}`,
+    income: Math.floor(Math.random() * maxIncome),
+    expenses: Math.floor(Math.random() * maxExpenses),
+  }));
+};
 
-const invoiceData = [
-  {name: "Sent", value: 400},
-  {name: "Paid", value: 300},
-  {name: "Overdue", value: 200},
-  {name: "Draft", value: 100},
-];
+const generateInvoiceData = (count: number) => {
+  return Array.from({ length: count }, (_, i) => ({
+    name: ["Sent", "Paid", "Overdue", "Draft"][i % 4],
+    value: Math.floor(Math.random() * 500),
+  }));
+};
 
-const financialNews = [
-  {
-    title: "The Impact of Inflation on Small Businesses",
-    content:
-      "Inflation can significantly affect small businesses. Here's how to navigate...",
-    link: "#",
-  },
-  {
-    title: "Tax Credits for Small Business Owners",
-    content: "Discover the tax credits available for small business owners...",
-    link: "#",
-  },
-];
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 export default function DashboardPage() {
+  const [incomeExpenseData, setIncomeExpenseData] = useState(() => generateRandomData(12, 5000, 4000));
+  const [invoiceStatusData, setInvoiceStatusData] = useState(() => generateInvoiceData(4));
+
+  useEffect(() => {
+    // Update data periodically (optional)
+    const intervalId = setInterval(() => {
+      setIncomeExpenseData(generateRandomData(12, 5000, 4000));
+      setInvoiceStatusData(generateInvoiceData(4));
+    }, 5000); // Update every 5 seconds
+
+    return () => clearInterval(intervalId); // Clean up interval on unmount
+  }, []);
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Financial Dashboard</h1>
@@ -66,7 +70,7 @@ export default function DashboardPage() {
             <AreaChart
               width={500}
               height={300}
-              data={data}
+              data={incomeExpenseData}
               margin={{
                 top: 5,
                 right: 20,
@@ -102,34 +106,24 @@ export default function DashboardPage() {
             <CardDescription>Track your invoice status</CardDescription>
           </CardHeader>
           <CardContent>
-            <BarChart width={500} height={300} data={invoiceData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
+            <PieChart width={400} height={300}>
+              <Pie
+                data={invoiceStatusData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {invoiceStatusData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
               <Tooltip />
               <Legend />
-              <Bar dataKey="value" fill="hsl(var(--accent))" />
-            </BarChart>
-          </CardContent>
-        </Card>
-
-        {/* Financial News Blog */}
-        <Card className="tributo-card col-span-1 md:col-span-2 lg:col-span-3">
-          <CardHeader>
-            <CardTitle>Financial News &amp; Knowledge</CardTitle>
-            <CardDescription>Stay updated with the latest financial trends</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul>
-              {financialNews.map((news, index) => (
-                <li key={index} className="mb-4">
-                  <a href={news.link} className="font-bold text-accent">
-                    {news.title}
-                  </a>
-                  <p className="text-sm">{news.content}</p>
-                </li>
-              ))}
-            </ul>
+            </PieChart>
           </CardContent>
         </Card>
       </div>
