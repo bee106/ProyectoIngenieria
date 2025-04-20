@@ -27,6 +27,9 @@ import Link from "next/link";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { format } from 'date-fns';
+import { enUS } from 'date-fns/locale';
+
 
 // Function to generate random data for charts
 const generateRandomData = (count: number, maxIncome: number, maxExpenses: number) => {
@@ -51,6 +54,8 @@ export default function DashboardPage() {
   const [invoiceStatusData, setInvoiceStatusData] = useState(() => generateInvoiceData(4));
   const [balance, setBalance] = useState(0);
   const [expenses, setExpenses] = useState(0);
+  const [currentDate, setCurrentDate] = useState(new Date()); // Use state for current date
+
 
   useEffect(() => {
     // Update data periodically (optional)
@@ -65,6 +70,8 @@ export default function DashboardPage() {
 
       setBalance(totalIncome - totalExpenses);
       setExpenses(totalExpenses);
+
+      setCurrentDate(new Date()); // Update the current date
     }, 5000); // Update every 5 seconds
 
     return () => clearInterval(intervalId); // Clean up interval on unmount
@@ -200,6 +207,10 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
         </div>
+          {/* Current Date Display */}
+          <div className="mt-4 text-muted-foreground">
+            Today is: {format(currentDate, 'PPP', { locale: enUS })}
+          </div>
       </div>
     </div>
   );
