@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarTrigger } from "@/components/ui/sidebar";
 import { Icons } from "@/components/icons";
@@ -5,8 +7,30 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Area, AreaChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis, ResponsiveContainer } from "recharts";
+import { generateRandomData } from "@/lib/utils";
 
 export default function Home() {
+  const [incomeExpenseData, setIncomeExpenseData] = useState(() => generateRandomData(12, 5000, 4000));
+  const [balance, setBalance] = useState(0);
+  const [expenses, setExpenses] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const newIncomeExpenseData = generateRandomData(12, 5000, 4000);
+      setIncomeExpenseData(newIncomeExpenseData);
+
+      const totalIncome = newIncomeExpenseData.reduce((sum, data) => sum + data.income, 0);
+      const totalExpenses = newIncomeExpenseData.reduce((sum, data) => sum + data.expenses, 0);
+
+      setBalance(totalIncome - totalExpenses);
+      setExpenses(totalExpenses);
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <div className="md:flex h-screen bg-background">
       <Sidebar className="w-64 md:block hidden">
@@ -23,6 +47,24 @@ export default function Home() {
                 <Link href="/dashboard">
                   <Icons.home className="mr-2 h-4 w-4" />
                   <span>Dashboard</span>
+                </Link>
+              </SidebarMenuButton>
+              <SidebarMenuButton>
+                <Link href="/accounting">
+                  <Icons.book className="mr-2 h-4 w-4" />
+                  <span>Accounting</span>
+                </Link>
+              </SidebarMenuButton>
+              <SidebarMenuButton>
+                <Link href="/tax">
+                  <Icons.calculator className="mr-2 h-4 w-4" />
+                  <span>Tax</span>
+                </Link>
+              </SidebarMenuButton>
+              <SidebarMenuButton>
+                <Link href="/reports">
+                  <Icons.scale className="mr-2 h-4 w-4" />
+                  <span>Reports</span>
                 </Link>
               </SidebarMenuButton>
               <SidebarMenuButton>
@@ -49,6 +91,18 @@ export default function Home() {
                   <span>Blog</span>
                 </Link>
               </SidebarMenuButton>
+              <SidebarMenuButton>
+                <Link href="/settings">
+                  <Icons.settings className="mr-2 h-4 w-4" />
+                  <span>Settings</span>
+                </Link>
+              </SidebarMenuButton>
+              <SidebarMenuButton>
+                <Link href="/support">
+                  <Icons.help className="mr-2 h-4 w-4" />
+                  <span>Support</span>
+                </Link>
+              </SidebarMenuButton>
             </SidebarMenu>
           </ScrollArea>
         </SidebarContent>
@@ -64,45 +118,61 @@ export default function Home() {
       </Sidebar>
 
       <div className="flex-1 p-4">
-        {/* Hamburger menu for mobile */}
-        <div className="md:hidden">
-          <SidebarTrigger />
-        </div>
-
         <div className="max-w-7xl mx-auto">
           <h1 className="text-2xl font-bold mb-4">Financial Dashboard</h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Card className="tributo-card">
-              <CardHeader>
-                <CardTitle>Welcome to FISCO!</CardTitle>
-                <CardDescription>Your financial journey starts here.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Explore the dashboard, manage clients, create invoices, and get help from the AI Tax Assistant. Let's get your finances in order!</p>
-              </CardContent>
-            </Card>
+          {/* Balance Card */}
+          <Card className="tributo-card">
+            <CardHeader>
+              <CardTitle>Balance</CardTitle>
+              <CardDescription>Current balance overview</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">${balance.toFixed(2)}</div>
+            </CardContent>
+          </Card>
 
-            <Card className="tributo-card">
-              <CardHeader>
-                <CardTitle>Getting Started with FISCO</CardTitle>
-                <CardDescription>A quick guide to using the platform.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ol>
-                  <li>Go to the Dashboard for a financial overview.</li>
-                  <li>Add and manage your Clients efficiently.</li>
-                  <li>Create and send professional Invoices.</li>
-                  <li>Utilize the AI Tax Assistant for expert guidance.</li>
-                </ol>
-              </CardContent>
-            </Card>
-          </div>
-          {/* Other dashboard content goes here */}
+          {/* Income vs Expenses Chart */}
+          <Card className="tributo-card">
+            <CardHeader>
+              <CardTitle>Income vs Expenses</CardTitle>
+              <CardDescription>Overview of your financial health</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={300}>
+                <AreaChart
+                  data={incomeExpenseData}
+                  margin={{
+                    top: 5,
+                    right: 20,
+                    left: 0,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Area
+                    type="monotone"
+                    dataKey="income"
+                    stroke="hsl(var(--chart-1))"
+                    fill="hsl(var(--chart-1))"
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="expenses"
+                    stroke="hsl(var(--chart-2))"
+                    fill="hsl(var(--chart-2))"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+
         </div>
       </div>
     </div>
   );
 }
-
-    

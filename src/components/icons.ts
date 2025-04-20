@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ArrowRight,
   Check,
@@ -29,20 +31,38 @@ import {
   FileText,
   PieChart,
   BarChart3,
-  Coins,
   MessageCircle,
   LogOut,
   LayoutDashboard,
-  Blocks
+  Blocks,
+  Book,
+  Calculator,
+  Wallet,
+  Globe,
+  Building2,
+  Contact2,
+  Scale,
+  Ban,
+  Calendar as CalendarIcon,
 } from 'lucide-react';
 import React from 'react';
 
 // Custom FISCO logo (replace with your actual SVG path)
-const FiscoLogo = () => (
-  React.createElement('svg', { width: "24", height: "24", viewBox: "0 0 24 24", fill: "currentColor", xmlns: "http://www.w3.org/2000/svg" },
-    React.createElement('path', { d: "M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z" })
-  )
-);
+function FiscoIcon() {
+  return (
+    React.createElement("svg", {
+      width: "24",
+      height: "24",
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      xmlns: "http://www.w3.org/2000/svg"
+    },
+      React.createElement("path", {
+        d: "M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z"
+      })
+    )
+  );
+}
 
 const Icons = {
   arrowRight: ArrowRight,
@@ -79,9 +99,18 @@ const Icons = {
   barChart: BarChart3,
   messageCircle: MessageCircle,
   blocks: Blocks,
-  logo: FiscoLogo, // Use the custom FISCO logo
+  logo: FiscoIcon, // Use the custom FISCO logo
   logout: LogOut,
   dashboard: LayoutDashboard,
+  book: Book,
+  calculator: Calculator,
+  wallet: Wallet,
+  globe: Globe,
+  building: Building2,
+  contact: Contact2,
+  scale: Scale,
+  bank: Ban,
+  calendar: CalendarIcon,
 };
 
 export { Icons };
