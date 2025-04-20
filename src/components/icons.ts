@@ -85,5 +85,3 @@ const Icons = {
 };
 
 export { Icons };
-
-    
